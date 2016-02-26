@@ -1,14 +1,14 @@
 ## Welcome to my GitHub-repository!
 this is my first private project with GitHub
 
-# gcm_test
-I'm just trying to get Google Cloud Messaging to work, to send messages (eg. logs from my server) to my android device.
-Also I want to learn how to use GitHub properly.
+# GCM_Test
+I'm just trying to get **Google Cloud Messaging** to work, to send messages (eg. logs from my server) to my android device.
+Also I want to learn how to use **GitHub** properly.
 
 Feel free to contact me, contribution or help or just showing interest is always appreciated.
 I am not yet an expert of anything at all.
 
-# How to create a local git repository from an existing project and push it to an empty remote repository
+### How to create a local git repository from an existing project and push it to an empty remote repository
 
 start git bash in the directory where your project is located in
 ````bash
@@ -50,9 +50,14 @@ git push origin master
 
 Now that should be it, if you check your repository you can see the files being added.
 
-# Renaming a branch
+### Renaming a branch
 
 ````bash
 git branch -m <oldname> <newname>
+````
+
+### clone an existing remote repository to a local machine
+````bash
+git clone <your-remote-repository_url>
 ````
 
