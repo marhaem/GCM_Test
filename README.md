@@ -30,7 +30,8 @@ but first you need to get the url of the remote repository, this can be done by 
 ````bash
 git remote add origin <your-remote-repositories_url>
 ````
-you just added a remote repository to your alias 'origin'
+
+you just assigned a remote repository to your alias 'origin'
 next thing to do is to verify this
 ````bash
 git remote -v
@@ -60,4 +61,4 @@ git branch -m <oldname> <newname>
 ````bash
 git clone <your-remote-repository_url>
 ````
-
+@TODO: how to change files and then upload changes
