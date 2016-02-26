@@ -62,3 +62,8 @@ git branch -m <oldname> <newname>
 git clone <your-remote-repository_url>
 ````
 @TODO: how to change files and then upload changes
+````bash
+git add <changed-file>
+git commit -m <descriptive-commit-name>
+git push origin <branch-name>
+````
