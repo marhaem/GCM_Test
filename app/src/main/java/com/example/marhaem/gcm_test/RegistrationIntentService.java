@@ -21,13 +21,19 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v4.content.LocalBroadcastManager;
+import android.util.Base64;
 import android.util.Log;
 
 import com.google.android.gms.gcm.GcmPubSub;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.google.android.gms.iid.InstanceID;
 
+import java.io.BufferedOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.net.URL;
+import java.net.HttpURLConnection;
+import java.net.URLConnection;
 
 public class RegistrationIntentService extends IntentService {
 
@@ -56,7 +62,14 @@ public class RegistrationIntentService extends IntentService {
             Log.i(TAG, "GCM Registration Token: " + token);
 
             // TODO: Implement this method to send any registration to your app's servers.
-            sendRegistrationToServer(token);
+            try
+            {
+                sendRegistrationToServer(token);
+            }
+            catch(Exception e)
+            {
+                Log.d(TAG, "Registration on server failed!", e);
+            }
 
             // Subscribe to topic channels
             subscribeTopics(token);
@@ -85,10 +98,32 @@ public class RegistrationIntentService extends IntentService {
      *
      * @param token The new token.
      */
-    private void sendRegistrationToServer(String token)
+    private void sendRegistrationToServer(String token) throws Exception
     {
         // @TODO Add custom implementation, as needed
-        HttpClient mHttpClient = new DefaultHttpClient();
+        URL url = new URL("http://" + getString(R.string.APP_SERVER_IP));
+        HttpURLConnection mHttpConn = (HttpURLConnection)url.openConnection();
+        String sendToken = "token:" + token;
+        byte[] base = Base64.encode(sendToken.getBytes("UTF-8"), Base64.DEFAULT);
+        mHttpConn.setReadTimeout(2000);
+        mHttpConn.setConnectTimeout(2000);
+        mHttpConn.setRequestMethod("POST");
+        mHttpConn.setUseCaches(false);
+        mHttpConn.setDoOutput(true);
+        mHttpConn.setChunkedStreamingMode(0);
+        OutputStream out = new BufferedOutputStream(mHttpConn.getOutputStream());
+        out.write(base);
+        out.close();
+        int responseCode = mHttpConn.getResponseCode();
+
+        if(responseCode!=200)
+        {
+            // @TODO retry with exponential backoff
+        }
+        else
+        {
+
+        }
 
     }
 
